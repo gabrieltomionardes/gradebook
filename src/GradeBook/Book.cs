@@ -6,11 +6,22 @@ namespace GradeBook
 {
     public class Book
     {
-        private readonly ICollection<double> _grades = new List<double>();
-
+        private readonly ICollection<double> _grades;
+        private readonly string _name;
+        public Book(string name)
+        {
+            if (string.IsNullOrEmpty(name))
+            {
+                throw new ArgumentException("Name can not be null or empty");
+            }
+            _name = name;
+            _grades = new List<double>();
+        }
         public double ComputeAverage() =>
-            _grades.Aggregate((a, b) => a + b) / _grades.Count;
+            _grades.Aggregate(0.0, (accumulated, next) => accumulated + next) / _grades.Count;
 
+        public double HighestGrade() => _grades.Max();
+        public double LowestGrade() => _grades.Min();
         public void AddGrade(double grade)
         {
             if (ValidGrade(grade))
@@ -19,10 +30,9 @@ namespace GradeBook
             }
             else
             {
-                throw new Exception($"The grade {grade} is invalid");
+                throw new ArgumentException($"The grade {grade} is invalid");
             }
         }
-
-        private bool ValidGrade(double grade) => grade >= 0 || grade <= 100;
+        private bool ValidGrade(double grade) => grade >= 0 && grade <= 100;
     }
 }
