@@ -20,8 +20,8 @@ namespace GradeBook
         public double ComputeAverage() =>
             _grades.Aggregate(0.0, (accumulated, next) => accumulated + next) / _grades.Count;
 
-        public double HighestGrade() => _grades.Max();
-        public double LowestGrade() => _grades.Min();
+        public double HighestGrade() => _grades.Count > 0 ?_grades.Max() : throw new Exception("Grades is empty");
+        public double LowestGrade() => _grades.Count > 0 ? _grades.Min() : throw new Exception("Grades is empty");
         public void AddGrade(double grade)
         {
             if (ValidGrade(grade))
