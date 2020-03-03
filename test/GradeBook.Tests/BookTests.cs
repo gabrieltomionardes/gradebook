@@ -10,7 +10,17 @@ namespace GradeBook.Tests
         {
             void Act() => new Book("");
             var exception = Assert.Throws<ArgumentException>((Action) Act);
-            Assert.Equal("Name can not be null or empty", exception.Message);
+            Assert.Equal("The name can not be null or empty", exception.Message);
+        }
+
+        [Fact]
+        public void CanChangeGradeBookName()
+        {
+            var book = new Book("Gbrl's");
+
+            book.Name = "Gabriel's";
+            
+            Assert.Equal("Gabriel's", book.Name);
         }
         
         [Fact]
@@ -18,7 +28,7 @@ namespace GradeBook.Tests
         {
             void Act() => new Book(null);
             var exception = Assert.Throws<ArgumentException>((Action) Act);
-            Assert.Equal("Name can not be null or empty", exception.Message);
+            Assert.Equal("The name can not be null or empty", exception.Message);
         }
 
         [Fact]
@@ -109,6 +119,71 @@ namespace GradeBook.Tests
             var exception = Assert.Throws<ArgumentException>((Action) Act);
             
             Assert.Equal("The grade -2 is invalid", exception.Message);
+        }
+
+        [Fact]
+        public void GetFLetter()
+        {
+            var book = new Book("Gabriel's");
+            book.AddGrade(33.1);
+            book.AddGrade(60.3);
+            book.AddGrade(21);
+
+            var letter= book.Letter();
+            
+            Assert.Equal('F', letter);
+        }
+        
+        [Fact]
+        public void GetDLetter()
+        {
+            var book = new Book("Gabriel's");
+            book.AddGrade(70.1);
+            book.AddGrade(60.3);
+            book.AddGrade(65);
+
+            var letter= book.Letter();
+            
+            Assert.Equal('D', letter);
+        }
+        
+        [Fact]
+        public void GetCLetter()
+        {
+            var book = new Book("Gabriel's");
+            book.AddGrade(70.1);
+            book.AddGrade(80.3);
+            book.AddGrade(71);
+
+            var letter= book.Letter();
+            
+            Assert.Equal('C', letter);
+        }
+        
+        [Fact]
+        public void GetBLetter()
+        {
+            var book = new Book("Gabriel's");
+            book.AddGrade(92.1);
+            book.AddGrade(80.3);
+            book.AddGrade(87.2);
+
+            var letter= book.Letter();
+            
+            Assert.Equal('B', letter);
+        }
+        
+        [Fact]
+        public void GetALetter()
+        {
+            var book = new Book("Gabriel's");
+            book.AddGrade(92.1);
+            book.AddGrade(99.3);
+            book.AddGrade(87.2);
+
+            var letter= book.Letter();
+            
+            Assert.Equal('A', letter);
         }
     }
 }
