@@ -6,9 +6,12 @@ namespace GradeBook
 {
     public class Book
     {
+        public event GradeBookAddedDelegate GradeBookAdded;
+        
         private readonly ICollection<double> _grades;
 
         private string _name;
+        
         public string Name
         {
             get => _name;
@@ -61,6 +64,8 @@ namespace GradeBook
             if (ValidGrade(grade))
             {
                 _grades.Add(grade);
+
+                GradeBookAdded?.Invoke(this, new EventArgs());
             }
             else
             {

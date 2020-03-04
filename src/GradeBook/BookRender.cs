@@ -1,9 +1,11 @@
 using System;
+using System.Collections.Generic;
 
 namespace GradeBook
 {
     static class BookRender
     {
+        private static readonly List<string> Log = new List<string>();
         public static string RenderBookName()
         {
             string bookName;
@@ -22,6 +24,7 @@ namespace GradeBook
             const string quit = "Q";
             
             var book = new Book(bookName);
+            book.GradeBookAdded += OnGradeBookAdded;
             var input = "";
             while (!quit.Equals(input))
             {
@@ -58,6 +61,17 @@ namespace GradeBook
             {
                 Console.WriteLine(exception.Message);
             }            
+        }
+
+        public static void RenderLog()
+        {
+            Console.WriteLine("LOG");
+            Log.ForEach(Console.WriteLine);
+        }
+        
+        static void OnGradeBookAdded(object sender, EventArgs args)
+        {
+            Log.Add("Grade book was added");
         }
     }
 }

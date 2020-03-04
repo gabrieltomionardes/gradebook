@@ -1,5 +1,4 @@
-﻿using System;
-
+﻿
 namespace GradeBook
 {
     class Program
@@ -9,6 +8,7 @@ namespace GradeBook
             var bookName = BookRender.RenderBookName();
             var book = BookRender.RenderAddGrades(bookName);
             BookRender.RenderStatistics(book);
+            BookRender.RenderLog();
         }
     }
 }
