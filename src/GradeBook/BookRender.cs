@@ -19,11 +19,11 @@ namespace GradeBook
             return bookName;
         }
 
-        public static Book RenderAddGrades(string bookName)
+        public static IBook RenderAddGrades(string bookName)
         {
             const string quit = "Q";
             
-            var book = new Book(bookName);
+            var book = new InMemoryBook(bookName);
             book.GradeBookAdded += OnGradeBookAdded;
             var input = "";
             while (!quit.Equals(input))
@@ -47,7 +47,7 @@ namespace GradeBook
             return book;
         }
         
-        public static void RenderStatistics(Book book)
+        public static void RenderStatistics(IBook book)
         {
             try
             {

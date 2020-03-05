@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace GradeBook
 {
-    public class Book
+    public class InMemoryBook : IBook
     {
         public event GradeBookAddedDelegate GradeBookAdded;
         
@@ -26,7 +26,7 @@ namespace GradeBook
             }
         }
 
-        public Book(string name)
+        public InMemoryBook(string name)
         {
             Name = name;
             _grades = new List<double>();
@@ -41,7 +41,7 @@ namespace GradeBook
         
         public double LowestGrade() => _grades.Count > 0 ? _grades.Min() : throw new Exception("Grades is empty");
        
-        public char Letter() 
+        public char Letter()
         {
             switch (ComputeAverage())
             {
