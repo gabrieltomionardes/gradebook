@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace GradeBook
 {
@@ -32,33 +31,11 @@ namespace GradeBook
             _grades = new List<double>();
         }
 
-        public double ComputeAverage() =>
-            _grades.Count > 0 ?
-            _grades.Aggregate(0.0, (accumulated, next) => accumulated + next) / _grades.Count :
-            throw new Exception("Grades is empty");
-        
-        public double HighestGrade() => _grades.Count > 0 ?_grades.Max() : throw new Exception("Grades is empty");
-        
-        public double LowestGrade() => _grades.Count > 0 ? _grades.Min() : throw new Exception("Grades is empty");
-       
-        public char Letter()
+        public Statistics ComputeStatistics()
         {
-            switch (ComputeAverage())
-            {
-                case var average when average >= 90:
-                    return 'A';
-                case var average when average >= 80:
-                    return 'B';
-                case var average when average >= 70:
-                    return 'C';
-                case var average when average >= 60:
-                    return 'D';
-                default:
-                    return 'F';
-            }
-
+            return new Statistics(_grades);
         }
-        
+
         public void AddGrade(double grade)
         {
             if (ValidGrade(grade))

@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 
 namespace GradeBook
 {
@@ -13,7 +14,7 @@ namespace GradeBook
             {
                 if (string.IsNullOrEmpty(value))
                 {
-                    throw new ArgumentException($"The name can not be null or empty");
+                    throw new ArgumentException("The name can not be null or empty");
                 }
 
                 _name = value;
@@ -27,37 +28,29 @@ namespace GradeBook
         
         public void AddGrade(double grade)
         {
-            var writer = File.AppendText($"{Name}.txt");
-            try
+            if (ValidGrade(grade))
             {
+                using var writer = File.AppendText($"{Name}.txt");
                 writer.WriteLine(grade);
+                if (GradeBookAdded != null)
+                {
+                    GradeBookAdded.Invoke(grade, new EventArgs());
+                }    
             }
-            finally
+            else
             {
-                writer.Close();    
+                throw new ArgumentException($"The {nameof(grade)} {grade} is invalid");
             }
         }
 
-        public double HighestGrade()
+        public Statistics ComputeStatistics()
         {
-            throw new System.NotImplementedException();
-        }
-
-        public double LowestGrade()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public char Letter()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public double ComputeAverage()
-        {
-            throw new System.NotImplementedException();
+            var grades = File.ReadLines($"{Name}.txt").Select(double.Parse).ToList();
+            return new Statistics(grades);
         }
 
         public event GradeBookAddedDelegate GradeBookAdded;
+        
+        private bool ValidGrade(double grade) => grade >= 0 && grade <= 100;
     }
 }

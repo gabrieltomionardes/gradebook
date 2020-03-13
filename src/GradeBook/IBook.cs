@@ -4,14 +4,8 @@ namespace GradeBook
     {
         void AddGrade(double grade);
         
-        double HighestGrade();
-        
-        double LowestGrade();
-        
-        char Letter();
-        
-        double ComputeAverage();
-        
+        Statistics ComputeStatistics();
+               
         string Name { get; }
         
         event GradeBookAddedDelegate GradeBookAdded;

@@ -40,7 +40,7 @@ namespace GradeBook.Tests
             book.AddGrade(67.6);
             book.AddGrade(70);
 
-            var average = book.ComputeAverage();
+            var average = book.ComputeStatistics().Average;
             
             Assert.Equal(64.55, average, 1);
         }
@@ -54,7 +54,7 @@ namespace GradeBook.Tests
             book.AddGrade(79.2);
             book.AddGrade(63.1);
             
-            var highestGrade = book.HighestGrade();
+            var highestGrade = book.ComputeStatistics().HighestGrade;
 
             Assert.Equal(79.2, highestGrade);
         }
@@ -64,7 +64,7 @@ namespace GradeBook.Tests
         {
             var book = new InMemoryBook("Gabriel's");
 
-            void Act() => book.HighestGrade();
+            void Act() => book.ComputeStatistics();
 
             var exception = Assert.Throws<Exception>((Action) Act);
             
@@ -80,7 +80,7 @@ namespace GradeBook.Tests
             book.AddGrade(79.2);
             book.AddGrade(63.1);
 
-            var lowestGrade = book.LowestGrade();
+            var lowestGrade = book.ComputeStatistics().LowestGrade;
             
             Assert.Equal(29.3, lowestGrade);
         }
@@ -90,7 +90,7 @@ namespace GradeBook.Tests
         {
             var book = new InMemoryBook("Gabriel's");
 
-            void Act() => book.LowestGrade();
+            void Act() => book.ComputeStatistics();
 
             var exception = Assert.Throws<Exception>((Action) Act);
             
@@ -129,7 +129,7 @@ namespace GradeBook.Tests
             book.AddGrade(60.3);
             book.AddGrade(21);
 
-            var letter= book.Letter();
+            var letter= book.ComputeStatistics().Letter;
             
             Assert.Equal('F', letter);
         }
@@ -142,7 +142,7 @@ namespace GradeBook.Tests
             book.AddGrade(60.3);
             book.AddGrade(65);
 
-            var letter= book.Letter();
+            var letter= book.ComputeStatistics().Letter;
             
             Assert.Equal('D', letter);
         }
@@ -155,7 +155,7 @@ namespace GradeBook.Tests
             book.AddGrade(80.3);
             book.AddGrade(71);
 
-            var letter= book.Letter();
+            var letter= book.ComputeStatistics().Letter;
             
             Assert.Equal('C', letter);
         }
@@ -168,7 +168,7 @@ namespace GradeBook.Tests
             book.AddGrade(80.3);
             book.AddGrade(87.2);
 
-            var letter= book.Letter();
+            var letter= book.ComputeStatistics().Letter;
             
             Assert.Equal('B', letter);
         }
@@ -181,7 +181,7 @@ namespace GradeBook.Tests
             book.AddGrade(99.3);
             book.AddGrade(87.2);
 
-            var letter= book.Letter();
+            var letter= book.ComputeStatistics().Letter;
             
             Assert.Equal('A', letter);
         }

@@ -51,11 +51,12 @@ namespace GradeBook
         {
             try
             {
+                var statistics = book.ComputeStatistics();
                 Console.WriteLine($"Grade Book: {book.Name}");
-                Console.WriteLine($"The average grade is {book.ComputeAverage():N2}");
-                Console.WriteLine($"The highest grade is {book.HighestGrade():N2}");
-                Console.WriteLine($"The lowest grade is {book.LowestGrade():N2}");
-                Console.WriteLine($"The letter grade is {book.Letter()}");
+                Console.WriteLine($"The average grade is {statistics.Average:N2}");
+                Console.WriteLine($"The highest grade is {statistics.HighestGrade:N2}");
+                Console.WriteLine($"The lowest grade is {statistics.LowestGrade:N2}");
+                Console.WriteLine($"The letter grade is {statistics.Letter}");
             }
             catch (Exception exception)
             {
